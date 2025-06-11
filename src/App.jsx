@@ -9,10 +9,10 @@ function App() {
     fetchTodos();
   })
 
-  async function addTodo() {
+  async function addTodo(dueDate) {
     if (!title.trim) return;
 
-    const {error} = await supabase.from("todos").insert([{title}])
+    const {error} = await supabase.from("todos").insert([{title: title, completed: false, due_date: dueDate}]);
     if (error) console.error(error);
     else {
       setTitle("");
@@ -56,7 +56,7 @@ function App() {
       <input value={title} onChange={(e)=> {setTitle(e.target.value)}}
       placeholder="add a new todo"/>
 
-      <button onClick={addTodo}>add</button>
+      <button onClick={() => addTodo(prompt("due date:", ""))}>add</button>
 
       <h2>incomplete todos</h2>
       <button 
