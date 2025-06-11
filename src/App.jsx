@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import supabase from "../helper/supabaseClient";
+import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -56,7 +57,9 @@ function App() {
       <input value={title} onChange={(e)=> {setTitle(e.target.value)}}
       placeholder="add a new todo"/>
 
-      <button onClick={() => addTodo(prompt("due date:", "YYYY-MM-DD"))}>add</button>
+      <button 
+        class="border border-width: 1px border-black;"
+        onClick={() => addTodo(prompt("due date:", "YYYY-MM-DD"))}>add</button>
 
       <h2>incomplete todos</h2>
       <button 
