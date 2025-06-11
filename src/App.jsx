@@ -41,7 +41,11 @@ function App() {
 
   async function updateTodo(id, value) {
     await supabase.from("todos").update({title: value}).eq("id", id);
+    fetchTodos();
+  }
 
+  async function clearAll(bool) {
+    await supabase.from("todos").delete().in("completed", [bool]);
     fetchTodos();
   }
 
@@ -55,6 +59,9 @@ function App() {
       <button onClick={addTodo}>add</button>
 
       <h2>incomplete todos</h2>
+      <button 
+        onClick={() => clearAll(false)}>clear all</button>
+
       <div>
         {todos
           .filter((t) => !t.completed)
@@ -72,6 +79,8 @@ function App() {
       </div>
 
       <h2>completed todos</h2>
+      <button 
+        onClick={() => clearAll(true)}>clear all</button>
       <div>
         {todos
           .filter((t) => t.completed)
